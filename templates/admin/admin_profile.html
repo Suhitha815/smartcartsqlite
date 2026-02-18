@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Profile</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- INTERNAL CSS -->
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            background: #f7f8fc;
+        }
+
+        /* Sticky Header & Navbar */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: #1e4fd7;
+            color: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h2 {
+            font-size: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Page Title */
+        h2 {
+            margin: 20px;
+        }
+
+        /* Flash Messages */
+        p {
+            margin-left: 20px;
+        }
+
+        /* Profile Image */
+        img {
+            display: block;
+            margin: 0 20px;
+            object-fit: cover;
+        }
+
+        /* Form Container */
+        form {
+            max-width: 500px;
+            margin: 20px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        label {
+            font-weight: 600;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+
+        input[type="file"] {
+            padding: 4px;
+        }
+
+        button {
+            background: #1e4fd7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #163bb5;
+        }
+
+        /* Links */
+        a {
+            margin: 0 20px 20px;
+            display: inline-block;
+            text-decoration: none;
+            color: #1e4fd7;
+            font-weight: 500;
+        }
+
+        /* Sticky Footer */
+        footer {
+            margin-top: auto;
+            background: #f1f1f1;
+            text-align: center;
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav {
+                margin-top: 8px;
+            }
+
+            nav a {
+                margin-left: 0;
+                margin-right: 10px;
+            }
+
+            form {
+                width: calc(100% - 40px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>🛒 SmartCart</h2>
+    <nav>
+        <a href="/admin-logout">Logout</a>
+    </nav>
+</header>
+
+<h2>Admin Profile</h2>
+
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for category, message in messages %}
+    <p style="color:green;">{{ message }}</p>
+  {% endfor %}
+{% endwith %}
+
+<!-- Current Profile Image -->
+{% if admin.profile_image %}
+    <img src="/static/uploads/admin_profiles/{{ admin.profile_image }}"
+         width="120" height="120" style="border-radius:50%;">
+    <br>
+{% else %}
+    <p>No Profile Image</p>
+{% endif %}
+
+<form method="POST" action="/admin/profile" enctype="multipart/form-data">
+
+    <label>Name:</label>
+    <input type="text" name="name" value="{{ admin.name }}" required>
+
+    <br><br>
+
+    <label>Email:</label>
+    <input type="email" name="email" value="{{ admin.email }}" required>
+
+    <br><br>
+
+    <label>New Password (optional):</label>
+    <input type="password" name="password">
+
+    <br><br>
+
+    <label>Upload New Profile Image (optional):</label>
+    <input type="file" name="profile_image" accept="image/*">
+
+    <br><br>
+
+    <button type="submit">Update Profile</button>
+</form>
+
+<a href="/admin-dashboard">Back to Dashboard</a>
+
+<footer>
+    &copy; 2026 SmartCart built by Suhitha. All rights reserved.
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        /* ===== BASE ===== */
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f8fc;
+            padding-bottom: 70px; /* space for sticky footer */
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: #1e4fd7;
+            color: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h2 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+            font-weight: 500;
+        }
+
+        /* ===== CONTENT ===== */
+        .page-content {
+            padding: 20px;
+        }
+
+        /* ===== TABLE ===== */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        img {
+            max-width: 80px;
+        }
+
+        a {
+            color: #1e4fd7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* ===== STICKY FOOTER ===== */
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #f1f1f1;
+            text-align: center;
+            padding: 12px;
+            font-size: 14px;
+            border-top: 1px solid #ddd;
+        }
+
+        /* ===== MOBILE ===== */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav {
+                margin-top: 8px;
+            }
+
+            nav a {
+                margin: 0 8px;
+            }
+
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>🛒 SmartCart</h2>
+    <nav>
+        <a href="/user/products">Products</a>
+        <a href="/user/cart">Cart</a>
+        <a href="/user/my-orders">Orders</a>
+        <a href="/user-logout">Logout</a>
+    </nav>
+</header>
+
+<div class="page-content">
+
+<h2>Your Cart</h2>
+
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for category, message in messages %}
+    <p style="color:red;">{{ message }}</p>
+  {% endfor %}
+{% endwith %}
+
+{% if not cart %}
+    <p>Your cart is empty.</p>
+    <a href="/user/products">Shop Now</a>
+{% else %}
+
+<table border="1" cellpadding="10">
+    <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+        <th>Action</th>
+    </tr>
+
+    {% for pid, item in cart.items() %}
+    <tr>
+        <td><img src="/static/uploads/product_images/{{ item.image }}"></td>
+        <td>{{ item.name }}</td>
+        <td>₹{{ item.price }}</td>
+        <td>
+            <a href="/user/cart/decrease/{{ pid }}"> - </a>
+            {{ item.quantity }}
+            <a href="/user/cart/increase/{{ pid }}"> + </a>
+        </td>
+        <td>₹{{ item.price * item.quantity }}</td>
+        <td><a href="/user/cart/remove/{{ pid }}">Remove</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+<br>
+
+<h3>Grand Total: ₹{{ grand_total }}</h3>
+
+<a href="/user/products">Continue Shopping</a> |
+<a href="/user/pay">Proceed to Pay</a>
+
+{% endif %}
+
+</div>
+
+<footer>
+    &copy; 2026 SmartCart bulit by Suhitha. All rights reserved.
+</footer>
+
+</body>
+</html>

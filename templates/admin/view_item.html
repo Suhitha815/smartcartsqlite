@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        /* ===== RESET ===== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        /* ===== STICKY HEADER / NAVBAR ===== */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: #ffffff;
+            padding: 15px 30px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h2 {
+            color: #0077ff;
+            font-size: 22px;
+        }
+
+        header nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+
+        header nav a:hover {
+            color: #0077ff;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 30px auto;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            flex: 1;
+        }
+
+        .container h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .product-image {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            width: 220px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .product-details p {
+            margin-bottom: 10px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* ===== BACK LINK ===== */
+        .back-link {
+            margin-top: 20px;
+            display: inline-block;
+            text-decoration: none;
+            padding: 8px 14px;
+            background: #0077ff;
+            color: #fff;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            background: #005fcc;
+        }
+
+        /* ===== STICKY FOOTER ===== */
+        footer {
+            background: #f1f1f1;
+            text-align: center;
+            padding: 12px;
+            font-size: 14px;
+            border-top: 1px solid #ddd;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            header nav a {
+                margin-left: 10px;
+                font-size: 14px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>🛒 SmartCart</h2>
+    <nav>
+        <a href="/admin/products">Products</a>
+        <a href="/admin/add-product">Add Product</a>
+        <a href="/admin-logout">Logout</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <h2>Product Details</h2>
+
+    <div class="product-image">
+        <img src="/static/uploads/product_images/{{ product.image }}">
+    </div>
+
+    <div class="product-details">
+        <p><strong>Name:</strong> {{ product.name }}</p>
+        <p><strong>Description:</strong> {{ product.description }}</p>
+        <p><strong>Category:</strong> {{ product.category }}</p>
+        <p><strong>Price:</strong> ₹{{ product.price }}</p>
+    </div>
+
+    <a href="/admin/item-list" class="back-link">← Back to List</a>
+
+</div>
+
+<footer>
+    &copy; 2026 SmartCart built by Suhitha. All rights reserved.
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- INTERNAL CSS -->
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            background: #f7f8fc;
+        }
+
+        /* Sticky Header + Navbar */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: #1e4fd7;
+            color: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h2 {
+            font-size: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Page Content */
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.08);
+        }
+
+        .container h2 {
+            margin-bottom: 15px;
+        }
+
+        .product-img {
+            width: 100%;
+            max-width: 350px;
+            display: block;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        p {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        /* Buttons */
+        .actions {
+            margin-top: 20px;
+        }
+
+        .actions a {
+            display: inline-block;
+            text-decoration: none;
+            background: #1e4fd7;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 6px;
+            margin-right: 10px;
+            font-size: 15px;
+        }
+
+        .actions a:hover {
+            background: #163bb5;
+        }
+
+        /* Sticky Footer */
+        footer {
+            margin-top: auto;
+            background: #f1f1f1;
+            text-align: center;
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav {
+                margin-top: 8px;
+            }
+
+            nav a {
+                margin-left: 0;
+                margin-right: 10px;
+            }
+
+            .container {
+                margin: 15px;
+            }
+
+            .actions a {
+                display: block;
+                width: fit-content;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>🛒 SmartCart</h2>
+    <nav>
+        <a href="/user/products">Products</a>
+        <a href="/user/cart">Cart</a>
+        <a href="/user/my-orders">Orders</a>
+        <a href="/user-logout">Logout</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>{{ product.name }}</h2>
+
+    <img src="/static/uploads/product_images/{{ product.image }}"
+         class="product-img">
+
+    <p><strong>Description:</strong> {{ product.description }}</p>
+    <p><strong>Category:</strong> {{ product.category }}</p>
+    <p><strong>Price:</strong> ₹{{ product.price }}</p>
+
+    <div class="actions">
+        <a href="/user/products">Back to Products</a>
+        <a href="/user/add-to-cart/{{ product.product_id }}">Add to Cart</a>
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 SmartCart built by Suhitha. All rights reserved.
+</footer>
+
+</body>
+</html>

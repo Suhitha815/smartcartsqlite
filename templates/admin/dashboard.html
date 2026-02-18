@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <h2>🛒 SmartCart</h2>
+    <nav>
+        
+        <a href="/admin/add-item">Add Products</a>
+        <a href="/admin-logout">Logout</a>
+    </nav>
+</header>
+
+<!-- Flash messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for category, message in messages %}
+    <p style="color:green;">{{ message }}</p>
+  {% endfor %}
+{% endwith %}
+
+<h2>Welcome, {{ admin_name }}</h2>
+
+<br><hr>
+<a href="/admin/add-item">Add Product</a>
+
+<br><hr>
+<a href="/admin/item-list">View All Products</a>
+
+
+<!-- Logout Button -->
+<a href="/admin-logout">Logout</a>
+
+<p>This is your admin dashboard.</p>
+
+<footer class="bg-light text-center py-3">
+        &copy; 2026 SmartCart bulit by Suhitha. All rights reserved.
+    </footer>
+
+</body>
+</html>

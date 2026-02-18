@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+</head>
+<body>
+
+    <header>
+    <h2>🛒 SmartCart</h2>
+    <nav>
+        
+        <a href="/user/products">Products</a>
+        <a href="/user/cart">Cart</a>
+        <a href="/user/my-orders">Orders</a>
+        <a href="/user-logout">Logout</a>
+    </nav>
+</header>
+
+<h2 style="color:green;">Payment Successful!</h2>
+
+<p>Payment ID: {{ payment_id }}</p>
+<p>Order ID: {{ order_id }}</p>
+
+<a href="/user/products">Continue Shopping</a>
+
+<footer class="bg-light text-center py-3">
+        &copy; 2026 SmartCart bulit by Suhitha. All rights reserved.
+    </footer>
+
+</body>
+</html>

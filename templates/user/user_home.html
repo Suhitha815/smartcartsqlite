@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <h2>🛒 SmartCart</h2>
+    <nav>
+        
+        <a href="/user/products">Products</a>
+        <a href="/user/cart">Cart</a>
+        <a href="/user/my-orders">Orders</a>
+        <a href="/user-logout">Logout</a>
+    </nav>
+</header>
+
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for category, message in messages %}
+    <p style="color:green;">{{ message }}</p>
+  {% endfor %}
+{% endwith %}
+
+<h2>Welcome, {{ user_name }}!</h2>
+
+<a href="/user/products">Browse Products</a><br><br> 
+
+<br>
+<a href="/user/cart">
+    Cart ({{ session.get('cart')|length }})
+</a>
+
+<br><br>
+<a href="/user-logout">Logout</a>
+
+<footer class="bg-light text-center py-3">
+        &copy; 2026 SmartCart bulit by Suhitha. All rights reserved.
+    </footer>
+
+</body>
+</html>
+
+
+
+
