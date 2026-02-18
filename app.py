@@ -69,6 +69,12 @@ def get_db_connection():
 
 
 
+# Default route → redirect to user login
+@app.route('/')
+def index():
+    return redirect(url_for('user_login'))
+
+
 # ---------------------------------------------------------
 # ROUTE 1: ADMIN SIGNUP (SEND OTP)
 # ---------------------------------------------------------
